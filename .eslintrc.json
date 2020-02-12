@@ -1,0 +1,78 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "airbnb",
+        "plugin:react/recommended"
+    ],
+    "settings": {
+        "import/resolver": {
+          "node": {
+            "paths": ["src"]
+          }
+        }
+      },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-alert" : "off",
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-empty": "off",
+        "newline-after-var": "error",
+        "no-param-reassign": "off",
+        "no-shadow": "off",
+        "prefer-promise-reject-errors": "off",
+        "no-use-before-define": ["error", "nofunc"],
+        "react/jsx-filename-extension": ["error", {
+            "extensions": [".js", ".jsx"]
+          }],
+        "max-len": ["error", {
+          "code": 120,
+          "ignoreTrailingComments": true
+        }],
+        "comma-dangle": ["error", {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
+          "functions": "never"
+        }],
+        "jsx-a11y/label-has-for": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "import/prefer-default-export": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "import/no-named-as-default": "off",
+        "import/first": "off",
+        "react/no-multi-comp": "off"
+    }
+}
