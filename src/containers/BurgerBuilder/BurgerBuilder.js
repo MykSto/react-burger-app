@@ -57,7 +57,7 @@ const BurgerBuilder = () => {
   };
 
   const purchaseContinueHandler = () => {
-    alert("continu");
+    alert('continu');
   };
 
   const closeModalHandler = () => {
