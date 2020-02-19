@@ -101,6 +101,7 @@ const BurgerBuilder = () => {
             ingredients={state.ingredients}
             purchaseCancelled={closeModalHandler}
             purchaseContinue={purchaseContinueHandler}
+            totalPrice={state.totalPrice}
           />
         </Modal>
       ) }
