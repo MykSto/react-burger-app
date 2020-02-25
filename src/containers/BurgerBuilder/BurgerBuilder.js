@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Aux from 'hoc/Auxiliary';
+import axios from 'axios-orders';
 import Burger from 'components/Burger/Burger';
+import Spinner from 'components/UI/Spinner/Spinner';
 import BuildControls from 'components/Burger/BuildControls/BuildControls';
 import Modal from 'components/UI/Modal/Modal';
 import OrderSummary from 'components/Burger/OrderSummary/OrderSummary';
@@ -23,6 +25,7 @@ const BurgerBuilder = () => {
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
+    loading: false,
   });
 
   const updatePurchaseState = (ingredients) => {
@@ -57,7 +60,32 @@ const BurgerBuilder = () => {
   };
 
   const purchaseContinueHandler = () => {
-    alert('continu');
+    setState({ ...state, loading: true });
+    const order = {
+      ingredients: state.ingredients,
+      price: state.totalPrice,
+      customer: {
+        name: 'Michail',
+        address: {
+          street: 'Zirmunu 54',
+          zipcode: '08256',
+          country: 'Lithuania',
+        },
+        email: 'test@tes.com',
+      },
+      deliveryMethod: 'fast',
+    };
+
+    async function sendData() {
+      try {
+        await axios.post('/orders.json', order);
+
+        setState({ ...state, loading: false, purchasing: false });
+      } catch (error) {
+        setState({ ...state, loading: false, purchasing: false });
+      }
+    }
+    sendData();
   };
 
   const closeModalHandler = () => {
@@ -95,14 +123,17 @@ const BurgerBuilder = () => {
 
   return (
     <Aux>
-      {state.purchasing === true && (
+      {state.purchasing && (
         <Modal isOrdered={state.purchasing} modalClosed={closeModalHandler}>
-          <OrderSummary
-            ingredients={state.ingredients}
-            purchaseCancelled={closeModalHandler}
-            purchaseContinue={purchaseContinueHandler}
-            totalPrice={state.totalPrice}
-          />
+          {state.loading ? (<Spinner />) : (
+            <OrderSummary
+              ingredients={state.ingredients}
+              purchaseCancelled={closeModalHandler}
+              purchaseContinue={purchaseContinueHandler}
+              totalPrice={state.totalPrice}
+            />
+          )}
+
         </Modal>
       ) }
       {/* <Modal>

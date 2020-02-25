@@ -6,7 +6,7 @@ import styles from './Modal.module.css';
 
 class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.isOrdered !== this.props.isOrdered;
+    return nextProps.isOrdered !== this.props.isOrdered || this.props.children !== nextProps.children;
   }
 
   UNSAFE_componentWillUpdate() {
