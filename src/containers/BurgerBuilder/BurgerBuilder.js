@@ -38,9 +38,9 @@ const BurgerBuilder = () => {
       try {
         const result = await axios.get('https://burger-app-76fb9.firebaseio.com/ingredients.json');
 
-        setState({ ...state, ingredients: result.data });
+        setState((prevState) => ({ ...prevState, ingredients: result.data }));
       } catch (error) {
-        setState({ ...state, error });
+        setState((prevState) => ({ ...prevState, error }));
       }
     }
     fetchData();

@@ -2,8 +2,6 @@ import React from 'react';
 import BurgerBuilder from 'containers/BurgerBuilder/BurgerBuilder';
 import Layout from './containers/Layout/Layout';
 
-import styles from './App.module.css';
-
 function App() {
   return (
     <div>
