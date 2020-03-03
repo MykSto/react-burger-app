@@ -15,7 +15,7 @@ const INGREDIENT_PRICES = {
   bacon: 0.7,
 };
 
-const BurgerBuilder = () => {
+const BurgerBuilder = (props) => {
   const [state, setState] = useState({
     ingredients: null,
     totalPrice: 4,
@@ -70,32 +70,20 @@ const BurgerBuilder = () => {
   };
 
   const purchaseContinueHandler = () => {
-    setState({ ...state, loading: true });
-    const order = {
-      ingredients: state.ingredients,
-      price: state.totalPrice,
-      customer: {
-        name: 'Michail',
-        address: {
-          street: 'Zirmunu 54',
-          zipcode: '08256',
-          country: 'Lithuania',
-        },
-        email: 'test@tes.com',
-      },
-      deliveryMethod: 'fast',
-    };
+    const queryParams = [];
 
-    async function sendData() {
-      try {
-        await axios.post('/orders.json', order);
-
-        setState({ ...state, loading: false, purchasing: false });
-      } catch (error) {
-        setState({ ...state, loading: false, purchasing: false });
-      }
+    for (let i in state.ingredients) {
+      queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(state.ingredients[i])}`);
     }
-    sendData();
+
+    queryParams.push('price=' + state.totalPrice);
+
+    const queryString = queryParams.join('&');
+
+    props.history.push({
+      pathname: '/checkout',
+      search: `?${queryString}`,
+    });
   };
 
   const closeModalHandler = () => {
