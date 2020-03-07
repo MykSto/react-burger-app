@@ -17,18 +17,20 @@ const INGREDIENT_PRICES = {
 
 const BurgerBuilder = (props) => {
   const [state, setState] = useState({
-    ingredients: null,
+    ingredients: 0,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false,
-    error: null,
+    error: false,
   });
 
   const updatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients)
       .map((igKey) => ingredients[igKey])
-      .reduce((sum, el) => sum + el, 0);
+      .reduce((sum, el) => {
+        return sum + el;
+      }, 0);
 
     setState((prevState) => ({ ...prevState, purchasable: sum > 0 }));
   };
@@ -36,11 +38,11 @@ const BurgerBuilder = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get('https://burger-app-76fb9.firebaseio.com/ingredients.json');
+        const result = await axios.get('/ingredients.json');
 
         setState((prevState) => ({ ...prevState, ingredients: result.data }));
       } catch (error) {
-        setState((prevState) => ({ ...prevState, error }));
+        setState((prevState) => ({ ...prevState, error: true }));
       }
     }
     fetchData();

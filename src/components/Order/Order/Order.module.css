@@ -1,0 +1,23 @@
+.Order {
+    width: 50%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+
+.Order div span {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: auto;
+    border: 1px solid #ccc;
+}
+
+@media (min-width: 600px) {
+    .Order {
+        width: 500px;
+    }
+}

@@ -5,47 +5,55 @@ import ContactData from 'containers/Checkout/ContactData/ContactData';
 
 const Checkout = (props) => {
   const [check, setCheck] = useState({
-    ingredients: null,
-    price: 0,
+    ingredients: 0,
+    totalPrice: 0,
   });
 
   useEffect(() => {
     // pass state data via router
-    const query = new URLSearchParams(props.location.search);
-    const ingredients = {};
-    let price = null;
+    function queryFunc() {
+      const query = new URLSearchParams(props.location.search);
+      const queryIngredients = {};
+      let price = 0;
 
-    for (const param of query.entries()) {
-      if (param[0] === 'price') {
-        price = param[1];
-      } else {
-        ingredients[param[0]] = +param[1];
+      for (let param of query.entries()) {
+        if (param[0] === 'price') {
+          price = +param[1];
+        } else {
+          queryIngredients[param[0]] = +param[1];
+        }
       }
+      setCheck({ ingredients: queryIngredients, totalPrice: price });
     }
-    setCheck(prevState => ({ ...prevState, ingredients: ingredients, price: price }));
-  }, [props.location.search]);
+    queryFunc();
+    // return function cleanUp() {
+    // setCheck({  ingredients: ingredients, price: price });
+      
+    // }
+  }, []);
 
-  const checkoutCancelled = () => {
+  const checkoutCancelledHandler = () => {
     props.history.goBack();
   };
 
-  const checkoutContinued = () => {
-    props.history.replace(`${props.match.url}/contact-data/`);
+  const checkoutContinuedHandler = () => {
+    props.history.replace('checkout/contact-data');
   };
 
   return (
     <div>
       <CheckoutSummary
         ingredients={check.ingredients}
-        checkoutContinued={checkoutContinued}
-        checkoutCancelled={checkoutCancelled}
+        checkoutContinued={checkoutContinuedHandler}
+        checkoutCancelled={checkoutCancelledHandler}
       />
       <Route
-        path={`${props.match.url}/contact-data/`}
-        render={() => (
+        path={`${props.match.path}/contact-data`}
+        render={(props) => (
           <ContactData
             price={check.totalPrice}
             ingredients={check.ingredients}
+            {...props}
           />
         )}
       />
