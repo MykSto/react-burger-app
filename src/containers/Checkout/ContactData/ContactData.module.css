@@ -8,11 +8,6 @@
     box-sizing: border-box;
 }
 
-.Input input {
-    display: flex;
-    margin: 0 auto;
-}
-
 @media (min-width: 600px){
     .ContactData {
         width: 50%;
