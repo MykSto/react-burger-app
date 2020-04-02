@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as burgerBuilderActions from 'store/actions/burgerBuilder';
+import * as actionOrder from 'store/actions/order';
 import withErrorHandler from 'hoc/withErrorHandler/withErrorHandler';
 import axios from 'axios-orders';
 
@@ -35,6 +36,7 @@ const BurgerBuilder = (props) => {
   };
 
   const purchaseContinueHandler = () => {
+    props.onPurchaseInit();
     props.history.push('/checkout');
   };
 
@@ -83,15 +85,16 @@ const BurgerBuilder = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  ings: state.ingredients,
-  price: state.totalPrice,
-  error: state.error,
+  ings: state.burgerBuilder.ingredients,
+  price: state.burgerBuilder.totalPrice,
+  error: state.burgerBuilder.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
   onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
   onFetchIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
+  onPurchaseInit: () => dispatch(actionOrder.purchaseInit()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
