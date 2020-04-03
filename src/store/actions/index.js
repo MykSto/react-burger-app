@@ -4,4 +4,9 @@ export {
   initIngredients,
 } from 'store/actions/burgerBuilder';
 
-export { purchaseBurgerStart, purchaseBurger, purchaseInit } from 'store/actions/order';
+export {
+  purchaseBurgerStart,
+  purchaseBurger,
+  purchaseInit,
+  fetchOrders,
+} from 'store/actions/order';
