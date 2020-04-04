@@ -23,10 +23,10 @@ export const auth = (email, password, authMethod) => (dispatch) => {
     returnSecureToken: true,
   };
 
-  let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC3a2VhP10iIXGnEgRmviB4hpL1X-51ke0';
+  let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API-TOKEN]';
 
   if (!authMethod) {
-    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC3a2VhP10iIXGnEgRmviB4hpL1X-51ke0';
+    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API-TOKEN]';
   }
 
   axios.post(url, authData)
