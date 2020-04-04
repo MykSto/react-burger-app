@@ -10,3 +10,7 @@ export {
   purchaseInit,
   fetchOrders,
 } from 'store/actions/order';
+
+export {
+  auth,
+} from 'store/actions/auth';

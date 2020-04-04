@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import * as authActions from 'store/actions/index';
 
 import Input from 'components/UI/Form/Input/Input';
 import Button from 'components/UI/Button/Button';
 
 import styles from './Auth.module.css';
 
-const Auth = () => {
+const Auth = (props) => {
   const [auth, setAuth] = useState({
     controls: {
       email: {
@@ -37,6 +39,7 @@ const Auth = () => {
         touched: false,
       },
     },
+    isSignUp: true,
   });
 
   const checkValidity = (value, rules) => {
@@ -73,6 +76,10 @@ const Auth = () => {
     return isValid;
   };
 
+  const switchAuthModeHandler = () => {
+    setAuth((prevState) => ({ ...prevState, isSignUp: !prevState.isSignUp }));
+  };
+
   const inputChangedHandler = (event, controlName) => {
     const updatedControls = {
       ...auth.controls,
@@ -85,6 +92,11 @@ const Auth = () => {
     };
 
     setAuth({ controls: updatedControls });
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    props.onAuth(auth.controls.email.value, auth.controls.password.value, auth.isSignUp);
   };
 
   const formElementsArray = [];
@@ -111,12 +123,24 @@ const Auth = () => {
 
   return (
     <div className={styles.Auth}>
-      <form>
+      <form onSubmit={submitHandler}>
         { form }
-        <Button btnType="Success">Login</Button>
+        <Button btnType="Success">Submit</Button>
+        <Button
+          clicked={switchAuthModeHandler}
+          btnType="Danger"
+        >
+          Switch to:
+          {' '}
+          {auth.isSignUp ? 'SIGNIN' : 'SIGNUP'}
+        </Button>
       </form>
     </div>
   );
 };
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => ({
+  onAuth: (email, password, authMethod) => dispatch(authActions.auth(email, password, authMethod)),
+});
+
+export default connect(null, mapDispatchToProps)(Auth);
