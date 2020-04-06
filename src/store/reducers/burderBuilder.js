@@ -1,5 +1,5 @@
 import * as actionTypes from 'store/actions/actionTypes';
-import { updatedObject } from 'store/utility';
+import { updateObject } from 'store/utility';
 
 const initialState = {
   ingredients: null,
@@ -16,33 +16,33 @@ const INGREDIENT_PRICES = {
 
 const addIngredient = (state, action) => {
   const newIngredients = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 };
-  const updatedIngredients = updatedObject(state.ingredients, newIngredients);
+  const updatedIngredients = updateObject(state.ingredients, newIngredients);
   const updatedState = {
     ingredients: updatedIngredients,
     totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
   };
 
-  return updatedObject(state, updatedState);
+  return updateObject(state, updatedState);
 };
 
 const removeIngredient = (state, action) => {
   const newDelIngredients = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 };
-  const updatedDelIngredients = updatedObject(state, newDelIngredients);
+  const updatedDelIngredients = updateObject(state, newDelIngredients);
   const updatedDelState = {
     ingredients: updatedDelIngredients,
     totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
   };
 
-  return updatedObject(state, updatedDelState);
+  return updateObject(state, updatedDelState);
 };
 
-const setIngredients = (state, action) => updatedObject(state, {
+const setIngredients = (state, action) => updateObject(state, {
   ingredients: action.ingredients,
   error: false,
   totalPrice: 4,
 });
 
-const fetchIngredientsFailed = (state) => updatedObject(state, {
+const fetchIngredientsFailed = (state) => updateObject(state, {
   error: true,
 });
 

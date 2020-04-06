@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../utility';
+import { updateObject } from '../utility';
 
 const initialState = {
   orders: [],
@@ -7,30 +7,30 @@ const initialState = {
   purchased: false,
 };
 
-const purchaseInit = (state, action) => updatedObject(state, { purchased: false });
+const purchaseInit = (state, action) => updateObject(state, { purchased: false });
 
-const purchaseBurgerStart = (state, action) => updatedObject(state, { loading: false });
+const purchaseBurgerStart = (state, action) => updateObject(state, { loading: false });
 
 const purchaseBurgerSuccess = (state, action) => {
-  const newOrder = updatedObject(action.orderData, { id: action.orderId });
+  const newOrder = updateObject(action.orderData, { id: action.orderId });
 
-  return updatedObject(state, {
+  return updateObject(state, {
     loading: false,
     purchased: true,
     orders: state.orders.concat(newOrder),
   });
 };
 
-const purchaseBurgerFail = (state, action) => updatedObject(state, { loading: false });
+const purchaseBurgerFail = (state, action) => updateObject(state, { loading: false });
 
-const fetchOrdersStart = (state, action) => updatedObject(state, { loading: true });
+const fetchOrdersStart = (state, action) => updateObject(state, { loading: true });
 
-const fetchOrdersSuccess = (state, action) => updatedObject(state, {
+const fetchOrdersSuccess = (state, action) => updateObject(state, {
   orders: action.orders,
   loading: false,
 });
 
-const fetchOrdersFail = (state, action) => updatedObject(state, { loading: false });
+const fetchOrdersFail = (state, action) => updateObject(state, { loading: false });
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

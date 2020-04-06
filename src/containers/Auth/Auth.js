@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as authActions from 'store/actions/index';
 
 import Input from 'components/UI/Form/Input/Input';
 import Button from 'components/UI/Button/Button';
+import Spinner from 'components/UI/Spinner/Spinner';
 
 import styles from './Auth.module.css';
 
@@ -124,23 +125,30 @@ const Auth = (props) => {
   return (
     <div className={styles.Auth}>
       <form onSubmit={submitHandler}>
-        { form }
+        { props.loading ? <Spinner /> : form }
+        { props.error && (<p>{props.error.message}</p>)}
         <Button btnType="Success">Submit</Button>
-        <Button
-          clicked={switchAuthModeHandler}
-          btnType="Danger"
-        >
-          Switch to:
-          {' '}
-          {auth.isSignUp ? 'SIGNIN' : 'SIGNUP'}
-        </Button>
       </form>
+      <Button
+        clicked={switchAuthModeHandler}
+        btnType="Danger"
+      >
+        Switch to:
+        {' '}
+        {auth.isSignUp ? 'SIGNIN' : 'SIGNUP'}
+      </Button>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onAuth: (email, password, authMethod) => dispatch(authActions.auth(email, password, authMethod)),
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
 });
 
-export default connect(null, mapDispatchToProps)(Auth);
+const mapDispatchToProps = (dispatch) => ({
+  onAuth: (email, password, authMethod) => dispatch(authActions.auth(email, password, authMethod)),
+  onCheckLogout: () => dispatch(authActions.checkAuthTimeout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

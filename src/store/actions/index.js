@@ -13,4 +13,5 @@ export {
 
 export {
   auth,
+  checkAuthTimeout,
 } from 'store/actions/auth';
