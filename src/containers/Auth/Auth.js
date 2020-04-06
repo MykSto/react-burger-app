@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as authActions from 'store/actions/index';
+import { Redirect } from 'react-router-dom';
 
 import Input from 'components/UI/Form/Input/Input';
 import Button from 'components/UI/Button/Button';
@@ -42,6 +43,12 @@ const Auth = (props) => {
     },
     isSignUp: true,
   });
+
+  useEffect(() => {
+    if (!props.buildBurger && props.authRedirectPath !== '/') {
+      props.onSetAuthRedirectPath();
+    }
+  }, [props]);
 
   const checkValidity = (value, rules) => {
     let isValid = true;
@@ -122,9 +129,16 @@ const Auth = (props) => {
     />
   ));
 
+  let authRedirect = null;
+
+  if (props.token) {
+    authRedirect = <Redirect to={props.authRedirect} />;
+  }
+
   return (
     <div className={styles.Auth}>
       <form onSubmit={submitHandler}>
+        {authRedirect}
         { props.loading ? <Spinner /> : form }
         { props.error && (<p>{props.error.message}</p>)}
         <Button btnType="Success">Submit</Button>
@@ -144,11 +158,14 @@ const Auth = (props) => {
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
   error: state.auth.error,
+  token: state.auth.token !== null,
+  buildBurger: state.burgerBuilder.building,
+  authRedirect: state.auth.authRedirectPath,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onAuth: (email, password, authMethod) => dispatch(authActions.auth(email, password, authMethod)),
-  onCheckLogout: () => dispatch(authActions.checkAuthTimeout()),
+  onSetAuthRedirectPath: () => dispatch(authActions.setAuthRedirectPath('/')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

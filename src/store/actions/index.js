@@ -14,4 +14,6 @@ export {
 export {
   auth,
   checkAuthTimeout,
+  logOut,
+  setAuthRedirectPath,
 } from 'store/actions/auth';

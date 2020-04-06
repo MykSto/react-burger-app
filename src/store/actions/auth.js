@@ -16,8 +16,9 @@ export const authFail = (error) => ({
   error,
 });
 
-export const logOut = () => ({
+export const logOut = (token) => ({
   type: actionTypes.AUTH_LOGOUT,
+  token,
 });
 
 export const checkAuthTimeout = (expirationTime) => (dispatch) => {
@@ -34,10 +35,10 @@ export const auth = (email, password, authMethod) => (dispatch) => {
     returnSecureToken: true,
   };
 
-  let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API]';
+  let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
 
   if (!authMethod) {
-    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API]';
+    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   }
 
   axios.post(url, authData)
@@ -49,3 +50,8 @@ export const auth = (email, password, authMethod) => (dispatch) => {
       dispatch(authFail(error.response.data.error));
     });
 };
+
+export const setAuthRedirectPath = (path) => ({
+  type: actionTypes.SET_AUTH_REDIRECT_PATH,
+  path,
+});
