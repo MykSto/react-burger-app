@@ -34,7 +34,7 @@ const BurgerBuilder = (props) => {
 
   const purchaseHandler = () => {
     if (props.token) {
-      setState((prevState) => ({ ...prevState, purchasing: true }));
+      setState({ purchasing: true });
     } else {
       props.onSetAuthRedirectPath('/checkout');
       props.history.push('/auth');

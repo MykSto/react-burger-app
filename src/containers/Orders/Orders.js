@@ -10,7 +10,7 @@ import Order from 'components/Order/Order/Order';
 
 const Orders = (props) => {
   useEffect(() => {
-    props.onFetchOrders(props.token);
+    props.onFetchOrders(props.token, props.userId);
   }, []);
 
 
@@ -36,6 +36,7 @@ const mapStateToProps = (state) => ({
   orders: state.order.orders,
   loading: state.order.loading,
   token: state.auth.token,
+  userId: state.auth.userId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

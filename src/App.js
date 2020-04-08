@@ -1,5 +1,7 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as authAction from 'store/actions/index';
 
 import BurgerBuilder from 'containers/BurgerBuilder/BurgerBuilder';
 import Checkout from 'containers/Checkout/Checkout';
@@ -9,7 +11,11 @@ import Logout from 'containers/Auth/Logout/Logout';
 
 import Layout from './containers/Layout/Layout';
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    props.onLocalStorageToken();
+  });
+
   return (
     <div>
       <Layout>
@@ -25,4 +31,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  onLocalStorageToken: () => dispatch(authAction.authCheckState()),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(App));

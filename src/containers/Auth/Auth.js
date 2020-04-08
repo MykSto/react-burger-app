@@ -45,7 +45,7 @@ const Auth = (props) => {
   });
 
   useEffect(() => {
-    if (!props.buildBurger && props.authRedirectPath !== '/') {
+    if (!props.buildBurger && props.authRedirect !== '/') {
       props.onSetAuthRedirectPath();
     }
   }, [props]);
@@ -129,16 +129,12 @@ const Auth = (props) => {
     />
   ));
 
-  let authRedirect = null;
-
-  if (props.token) {
-    authRedirect = <Redirect to={props.authRedirect} />;
-  }
+  console.log('Auth.js', props.token)
 
   return (
     <div className={styles.Auth}>
       <form onSubmit={submitHandler}>
-        {authRedirect}
+        { props.token && <Redirect to={props.authRedirect}/>}
         { props.loading ? <Spinner /> : form }
         { props.error && (<p>{props.error.message}</p>)}
         <Button btnType="Success">Submit</Button>
