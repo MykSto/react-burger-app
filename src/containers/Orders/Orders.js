@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchOrders: (token) => dispatch(orderActions.fetchOrders(token)),
+  onFetchOrders: (token, userId) => dispatch(orderActions.fetchOrders(token, userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));
