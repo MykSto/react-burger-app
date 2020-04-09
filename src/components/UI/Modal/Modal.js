@@ -9,10 +9,6 @@ class Modal extends Component {
     return nextProps.isOrdered !== this.props.isOrdered || this.props.children !== nextProps.children;
   }
 
-  UNSAFE_componentWillUpdate() {
-    console.log('[Modal] will update');
-  }
-
   render() {
     return (
       <Aux>

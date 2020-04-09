@@ -97,8 +97,6 @@ const Auth = (props) => {
     />
   ));
 
-  console.log('Auth.js', props.token)
-
   return (
     <div className={styles.Auth}>
       <form onSubmit={submitHandler}>
