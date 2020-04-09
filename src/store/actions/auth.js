@@ -39,6 +39,7 @@ export const auth = (email, password, authMethod) => (dispatch) => {
     returnSecureToken: true,
   };
 
+  const API_TOKEN = 'AIzaSyC3a2VhP10iIXGnEgRmviB4hpL1X-51ke0';
 
   let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_TOKEN}`;
 

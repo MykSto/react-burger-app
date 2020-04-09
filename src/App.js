@@ -25,8 +25,9 @@ function App(props) {
               <Route path="/logout" component={Logout} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/orders" component={Orders} />
+              <Route path="/auth" component={Auth} />
               <Route path="/" exact component={BurgerBuilder} />
-              {/* <Redirect path="/" /> */}
+              <Redirect path="/" />
             </Switch>
           )
 
@@ -34,7 +35,7 @@ function App(props) {
             <Switch>
               <Route path="/auth" component={Auth} />
               <Route path="/" exact component={BurgerBuilder} />
-              {/* <Redirect path="/" /> */}
+              <Redirect path="/" />
             </Switch>
           )}
 

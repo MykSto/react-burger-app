@@ -3,7 +3,7 @@ import NavigationItem from 'components/Navigation/NavigationItems/NavigationItem
 import styles from './NavigationItems.module.css';
 
 const navigationItems = (props) => (
-  <ul className={styles.NavigationItems}>
+  <ul onClick={props.clicked} className={styles.NavigationItems}>
     <NavigationItem link="/">Burger Builder</NavigationItem>
     { props.isAuth && <NavigationItem link="/orders">Orders</NavigationItem> }
     { !props.isAuth
