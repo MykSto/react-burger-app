@@ -1,7 +1,8 @@
-import delay from 'redux-saga';
-import { put } from 'redux-saga/effects';
-import * as actions from 'store/actions/index';
+// import { delay } from 'redux-saga';
+import { put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+
+import * as actions from 'store/actions/index';
 
 export function* logoutSaga(action) {
   yield localStorage.removeItem('token');

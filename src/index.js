@@ -13,7 +13,7 @@ import './index.css';
 import burgerReducer from 'store/reducers/burderBuilder';
 import orderReducer from 'store/reducers/order';
 import authReducer from 'store/reducers/auth';
-import { watchAuth } from 'store/sagas/index';
+import { watchAuth, watchBurgerBuilder, watchOrder } from 'store/sagas/index';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -32,6 +32,8 @@ const store = createStore(rootReducer, composeEnhancers(
 ));
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchBurgerBuilder);
+sagaMiddleware.run(watchOrder);
 
 ReactDOM.render(
   <Provider store={store}>

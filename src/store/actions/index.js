@@ -2,6 +2,8 @@ export {
   addIngredient,
   removeIngredient,
   initIngredients,
+  setIngredients,
+  fetchIngredientsFailed,
 } from 'store/actions/burgerBuilder';
 
 export {
@@ -9,6 +11,11 @@ export {
   purchaseBurger,
   purchaseInit,
   fetchOrders,
+  fetchOrdersStart,
+  fetchOrdersSuccess,
+  fetchOrdersFail,
+  purchaseBurgerSuccess,
+  purchaseBurgerFail,
 } from 'store/actions/order';
 
 export {
