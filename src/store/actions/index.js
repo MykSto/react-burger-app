@@ -17,4 +17,8 @@ export {
   logOut,
   setAuthRedirectPath,
   authCheckState,
+  logoutSucceed,
+  authStart,
+  authSuccess,
+  authFail,
 } from 'store/actions/auth';
