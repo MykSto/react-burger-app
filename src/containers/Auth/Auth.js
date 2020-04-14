@@ -100,7 +100,7 @@ const Auth = (props) => {
   return (
     <div className={styles.Auth}>
       <form onSubmit={submitHandler}>
-        { props.token && <Redirect to={props.authRedirect}/>}
+        { props.token && <Redirect to={props.authRedirect} />}
         { props.loading ? <Spinner /> : form }
         { props.error && (<p>{props.error.message}</p>)}
         <Button btnType="Success">Submit</Button>
