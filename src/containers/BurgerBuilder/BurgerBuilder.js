@@ -16,9 +16,11 @@ import Aux from 'hoc/Auxiliary';
 export const BurgerBuilder = (props) => {
   const [purchasing, setPurchasing] = useState(false);
 
+  const { onFetchIngredients } = props;
+
   useEffect(() => {
-    props.onFetchIngredients();
-  }, []);
+    onFetchIngredients();
+  }, [onFetchIngredients]);
 
   // sum of the array, return boolean
   const updatePurchaseState = (ingredients) => {

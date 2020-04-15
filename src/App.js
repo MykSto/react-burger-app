@@ -23,9 +23,12 @@ const Auth = React.lazy(()=>{
 });
 
 const App = (props) => {
+
+  const { onLocalStorageToken } = props;
+
   useEffect(() => {
-    props.onLocalStorageToken();
-  });
+    onLocalStorageToken();
+  }, [onLocalStorageToken]);
 
   return (
     <div>

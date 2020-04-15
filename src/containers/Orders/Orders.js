@@ -9,9 +9,12 @@ import withErrorHandler from 'hoc/withErrorHandler/withErrorHandler';
 import Order from 'components/Order/Order/Order';
 
 const Orders = (props) => {
+
+  const { onFetchOrders } = props;
+
   useEffect(() => {
-    props.onFetchOrders(props.token, props.userId);
-  }, []);
+    onFetchOrders(props.token, props.userId);
+  }, [onFetchOrders]);
 
 
   let orders = <Spinner />;
