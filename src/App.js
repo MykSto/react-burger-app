@@ -1,28 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import {
   Route, Switch, withRouter, Redirect,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as authAction from 'store/actions/index';
-import asyncComponent from 'hoc/asyncComponent/asyncComponent';
 
 import BurgerBuilder from 'containers/BurgerBuilder/BurgerBuilder';
-// import Checkout from 'containers/Checkout/Checkout';
-// import Orders from 'containers/Orders/Orders';
-// import Auth from 'containers/Auth/Auth';
 import Logout from 'containers/Auth/Logout/Logout';
 
 import Layout from './containers/Layout/Layout';
 
-const asyncCheckout = asyncComponent(()=>{
+const Checkout = React.lazy(()=>{
   return import('containers/Checkout/Checkout');
 });
 
-const asyncOrders = asyncComponent(()=>{
+const Orders = React.lazy(()=>{
   return import('containers/Orders/Orders');
 });
 
-const asyncAuth = asyncComponent(()=>{
+const Auth = React.lazy(()=>{
   return import('containers/Auth/Auth');
 });
 
@@ -34,13 +30,14 @@ const App = (props) => {
   return (
     <div>
       <Layout>
+        <Suspense fallback={<p>Loading...</p>}>
         { props.token
           ? (
             <Switch>
               <Route path="/logout" component={Logout} />
-              <Route path="/checkout" component={asyncCheckout} />
-              <Route path="/orders" component={asyncOrders} />
-              <Route path="/auth" component={asyncAuth} />
+              <Route path="/checkout" render={() => <Checkout />} />
+              <Route path="/orders" render={() => <Orders />} />
+              <Route path="/auth" render={() => <Auth />} />
               <Route path="/" exact component={BurgerBuilder} />
               <Redirect to="/" />
             </Switch>
@@ -48,12 +45,12 @@ const App = (props) => {
 
           : (
             <Switch>
-              <Route path="/auth" component={asyncAuth} />
+              <Route path="/auth" render={() => <Auth />} />
               <Route path="/" exact component={BurgerBuilder} />
               <Redirect to="/" />
             </Switch>
           )}
-
+        </Suspense>
       </Layout>
     </div>
   );
