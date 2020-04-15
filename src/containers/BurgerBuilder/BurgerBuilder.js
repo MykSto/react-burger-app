@@ -14,9 +14,7 @@ import OrderSummary from 'components/Burger/OrderSummary/OrderSummary';
 import Aux from 'hoc/Auxiliary';
 
 export const BurgerBuilder = (props) => {
-  const [state, setState] = useState({
-    purchasing: false,
-  });
+  const [purchasing, setPurchasing] = useState(false);
 
   useEffect(() => {
     props.onFetchIngredients();
@@ -34,7 +32,7 @@ export const BurgerBuilder = (props) => {
 
   const purchaseHandler = () => {
     if (props.token) {
-      setState({ purchasing: true });
+      setPurchasing(true);
     } else {
       props.onSetAuthRedirectPath('/checkout');
       props.history.push('/auth');
@@ -47,7 +45,7 @@ export const BurgerBuilder = (props) => {
   };
 
   const closeModalHandler = () => {
-    setState((prevState) => ({ ...prevState, purchasing: false }));
+    setPurchasing(false);
   };
 
   const disabledInfo = {
@@ -60,7 +58,7 @@ export const BurgerBuilder = (props) => {
 
   return (
     <Aux>
-      <Modal isOrdered={state.purchasing} modalClosed={closeModalHandler}>
+      <Modal isOrdered={purchasing} modalClosed={closeModalHandler}>
         {props.ings ? (
           <OrderSummary
             ingredients={props.ings}

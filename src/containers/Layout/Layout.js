@@ -7,29 +7,22 @@ import SideDrawer from 'components/Navigation/SideDrawer/SideDrawer';
 
 import styles from './Layout.module.css';
 
-
 const Layout = (props) => {
-  const [state, setState] = useState({
-    showSideDrawer: false,
-  });
+  const [sideDrawerIsVisible, setSideDrawerisVisible] = useState(false);
 
   const sideDrawerClosedHandler = () => {
-    setState({
-      showSideDrawer: false,
-    });
+    setSideDrawerisVisible(false);
   };
 
   const sideDrawerToggleHandler = () => {
-    setState((prevState) => ({
-      showSideDrawer: !prevState.showSideDrawer,
-    }));
+    setSideDrawerisVisible(!sideDrawerIsVisible);
   };
 
 
   return (
     <Aux>
       <Toolbar isAuth={props.token} drawerToggleClicked={sideDrawerToggleHandler} />
-      <SideDrawer isAuth={props.token} open={state.showSideDrawer} closed={sideDrawerClosedHandler} />
+      <SideDrawer isAuth={props.token} open={sideDrawerIsVisible} closed={sideDrawerClosedHandler} />
       <main className={styles.Content}>
         {props.children}
       </main>

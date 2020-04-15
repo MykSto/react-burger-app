@@ -44,17 +44,18 @@ const Auth = (props) => {
         touched: false,
       },
     },
-    isSignUp: true,
   });
+
+  const [isSignUp, setIsSignUp] = useState(true);
 
   useEffect(() => {
     if (!props.buildBurger && props.authRedirect !== '/') {
       props.onSetAuthRedirectPath();
     }
-  }, [props]);
+  }, []);
 
   const switchAuthModeHandler = () => {
-    setAuth((prevState) => ({ ...prevState, isSignUp: !prevState.isSignUp }));
+    setIsSignUp(!isSignUp);
   };
 
   const inputChangedHandler = (event, controlName) => {
@@ -72,7 +73,7 @@ const Auth = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onAuth(auth.controls.email.value, auth.controls.password.value, auth.isSignUp);
+    props.onAuth(auth.controls.email.value, auth.controls.password.value, isSignUp);
   };
 
   const formElementsArray = [];
@@ -111,7 +112,7 @@ const Auth = (props) => {
       >
         Switch to:
         {' '}
-        {auth.isSignUp ? 'SIGNIN' : 'SIGNUP'}
+        {isSignUp ? 'SIGNIN' : 'SIGNUP'}
       </Button>
     </div>
   );
